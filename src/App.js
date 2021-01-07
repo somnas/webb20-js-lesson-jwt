@@ -1,23 +1,25 @@
-import React, { useRef } from 'react'
+import React, {useState} from 'react'
 
 function App() {
-  const emailInputRef = useRef()
-  const passwordInputRef = useRef()
 
-  function handleOnSubmit(e) {
-    e.preventDefault()
-    console.log("Form submitted")
-    const email = emailInputRef.current.value
-    const password = passwordInputRef.current.value
+  const [emailInput, setEmailInput] = useState("")
+  const [passwordInput, setPasswordInput] = useState("")
+
+  function handleEmailInput(e) {
+    setEmailInput(e.target.value)
+  }
+
+  function handlePasswordInput(e) {
+    setPasswordInput(e.target.value)
   }
 
   return (
     <div>
-      <form onSubmit={handleOnSubmit}>
+      <form>
         <label>Email</label>
-        <input ref={emailInputRef} />
+        <input onChange={handleEmailInput}/>
         <label>Password</label>
-        <input ref={passwordInputRef}/>
+        <input onChange={handlePasswordInput}/>
         <button type="submit">Log In</button>
       </form>
     </div>
