@@ -75,8 +75,8 @@ function App() {
       <button onClick={getMe}>Get Me</button>
       <button onClick={getCustomerList}>Get Customer List</button>
 
-      {customerList.map((item, index) => {
-        return <p key={index}>{item.name}</p>
+      {customerList.map(item => {
+        return <p key={item.id}>{item.name}</p>
       })}
     </div>
   );
