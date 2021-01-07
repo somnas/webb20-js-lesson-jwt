@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
 
 function App() {
-  const [emailInput, setEmailInput] = useState("")
-  const [passwordInput, setPasswordInput] = useState("")
+  const [customerList, setCustomerList] = useState([])
   const [formData, setFormData] = useState({
     email: "webb19@willandskill.se",
     password: "javascriptoramverk"
@@ -30,7 +29,37 @@ function App() {
       }
     })
     .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      console.log(data.token)
+      localStorage.setItem("WEBB20", data.token)
+    })
+  }
+
+  function getMe() {
+    const url = "https://frebi.willandskill.eu/api/v1/me/"
+    const token = localStorage.getItem("WEBB20")
+    fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
     .then(data => console.log(data))
+  }
+
+  function getCustomerList() {
+    const url = "https://frebi.willandskill.eu/api/v1/customers/"
+    const token = localStorage.getItem("WEBB20")
+    fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => setCustomerList(data.results))
   }
 
   return (
@@ -42,6 +71,13 @@ function App() {
         <input name="password" value={formData.password} onChange={handleOnChange}/>
         <button type="submit">Log In</button>
       </form>
+      <hr/>
+      <button onClick={getMe}>Get Me</button>
+      <button onClick={getCustomerList}>Get Customer List</button>
+
+      {customerList.map((item, index) => {
+        return <p key={index}>{item.name}</p>
+      })}
     </div>
   );
 }
