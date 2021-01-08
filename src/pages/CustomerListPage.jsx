@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import CustomerListItem from './components/CustomerListItem'
 
 export default function CustomerListPage() {
 
@@ -27,7 +28,7 @@ export default function CustomerListPage() {
     return (
         <div>
             {customerList.map(item => {
-            return <p key={item.id}>{item.name}</p>
+            return <p><CustomerListItem key={item.id} customerData={item} /></p>
             })}
         </div>
     )

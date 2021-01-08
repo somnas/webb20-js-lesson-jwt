@@ -10,6 +10,9 @@ export default function LoginPage() {
     password: "javascriptoramverk"
   })
 
+  const history = useHistory()
+  console.log(history);
+
   function handleOnChange(e) {
     const inputName = e.target.name
     const inputValue = e.target.value
@@ -36,6 +39,7 @@ export default function LoginPage() {
       console.log(data)
       console.log(data.token)
       localStorage.setItem("WEBB20", data.token)
+      history.push("/customer-list")
     })
   }
     return (
